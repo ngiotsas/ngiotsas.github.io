@@ -1,3 +1,10 @@
+// Discord-style console warning - execute immediately
+console.log('%c🛑 STOP!', 'color: red; font-size: 50px; font-weight: bold;');
+console.log('%cThis is a browser feature intended for developers. If someone told you to copy and paste something here to enable a feature or "fix" something, it is a scam and could harm your computer or steal your data.', 'color: red; font-size: 16px; font-weight: bold;');
+console.log('%cDo not paste code from untrusted sources!', 'color: red; font-size: 18px; font-weight: bold;');
+console.log('%cIf you must paste code, type "allow pasting" below to continue.', 'color: orange; font-size: 14px;');
+console.log('%c────────────────────────────────────────────────────────────────', 'color: red;');
+
 // Loading screen
 window.addEventListener('load', () => {
     const loading = document.getElementById('loading');
