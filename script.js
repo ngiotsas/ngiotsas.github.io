@@ -1,192 +1,336 @@
-// Discord-style console warning - execute immediately
-// ES6 version with template literals
-console.log('%c🛑 STOP!', 'color: red; font-size: 50px; font-weight: bold;');
-console.log(`%cThis is a browser feature intended for developers. If someone told you to copy and paste something here to enable a feature or "fix" something, it is a scam and could harm your computer or steal your data.`, 'color: red; font-size: 16px; font-weight: bold;');
-console.log(`%cDo not paste code from untrusted sources!`, 'color: red; font-size: 18px; font-weight: bold;');
-console.log(`%cIf you must paste code, type "allow pasting" below to continue.`, 'color: orange; font-size: 14px;');
-console.log('%c────────────────────────────────────────────────────────────────', 'color: red;');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
-// Loading screen
-window.addEventListener('load', () => {
-    const loading = document.getElementById('loading');
-    setTimeout(() => {
-        loading.classList.add('hidden');
-    }, 1000);
-});
-
-// Smooth scrolling and URL management
-function updateURL(sectionId) {
-    const url = new URL(window.location);
-    url.searchParams.set('section', sectionId);
-    window.history.replaceState({}, '', url);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-function getActiveSection() {
-    const sections = document.querySelectorAll('section[id]');
-    const scrollPosition = window.scrollY + window.innerHeight / 2;
-    
-    let activeSection = 'home';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionBottom = sectionTop + sectionHeight;
-        
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            activeSection = section.id;
-        }
-    });
-    
-    return activeSection;
+:root {
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --secondary: #3b82f6;
+    --text: #1f2937;
+    --text-light: #6b7280;
+    --bg: #ffffff;
+    --bg-alt: #f9fafb;
+    --border: #e5e7eb;
+    --shadow: rgba(0, 0, 0, 0.1);
 }
 
-function updateActiveNavLink(activeId) {
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${activeId}`) {
-            link.classList.add('active');
-        }
-    });
+/* ── HTML class utilities ── */
+html.white { background-color: #ffffff; }
+html.antialiased,
+html.antialiased * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html.smooth { scroll-behavior: smooth; }
+html.flexbox body { display: flex; flex-direction: column; min-height: 100vh; }
+html.responsive img { max-width: 100%; height: auto; }
+html.no-js .spinner { display: none; }
+html.js .no-js-msg { display: none; }
+
+/* ── Base ── */
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-function scrollToSection(sectionId, behavior = 'smooth') {
-    const target = document.getElementById(sectionId);
-    if (target) {
-        const offsetTop = target.offsetTop;
-        window.scrollTo({
-            top: offsetTop,
-            behavior: behavior
-        });
-    }
+/* ── Scroll reveal animations ── */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.scroll-reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.scroll-reveal-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+.scroll-reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.scroll-reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
 }
 
-// Scroll event listener
-let ticking = false;
-function onScroll() {
-    if (!ticking) {
-        requestAnimationFrame(() => {
-            // Update header style
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('header-scrolled');
-            } else {
-                header.classList.remove('header-scrolled');
-            }
-            
-            // Update active section
-            const activeSection = getActiveSection();
-            updateActiveNavLink(activeSection);
-            updateURL(activeSection);
-            
-            // Reveal animations
-            revealElements();
-            
-            ticking = false;
-        });
-        ticking = true;
-    }
+/* ── Header ── */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+.header-scrolled {
+    box-shadow: 0 4px 20px var(--shadow);
+}
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+.logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+}
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+.nav-link {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.nav-link:hover,
+.nav-link.active { color: var(--primary); }
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+
+/* ── Hero ── */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+.hero-content {
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.hero-profile-small {
+    width: 200px;
+    height: 200px;
+    border-radius: 10%;
+    object-fit: cover;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: slideUp 1s ease 0.3s forwards;
+}
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: slideUp 1s ease 0.5s forwards;
+}
+.hero-subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: slideUp 1s ease 0.7s forwards;
+}
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: slideUp 1s ease 0.9s forwards;
+}
+.hero-cta:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-window.addEventListener('scroll', onScroll);
+/* ── Sections ── */
+.section { padding: 80px 0; position: relative; }
+#about   { background: var(--bg-alt); }
+#portfolio, #contact { background: var(--bg); }
 
-// Navigation click handlers
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-        
-        scrollToSection(targetId);
-        updateURL(targetId);
-        updateActiveNavLink(targetId);
-    });
-});
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-// Scroll reveal animations
-function revealElements() {
-    const reveals = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right');
-    
-    reveals.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < window.innerHeight - elementVisible) {
-            element.classList.add('active');
-        }
-    });
+.section-header  { text-align: center; margin-bottom: 60px; }
+.section-title   { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+.section-subtitle { font-size: 1.2rem; color: var(--text-light); max-width: 600px; margin: 0 auto; }
+
+/* ── Portfolio grid ── */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.project-card {
+    background: var(--bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px var(--shadow);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+.project-image {
+    height: 200px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    font-weight: 700;
+}
+.project-content  { padding: 30px; }
+.project-title    { font-size: 1.5rem; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+.project-description { color: var(--text-light); margin-bottom: 20px; line-height: 1.6; }
+.project-tech     { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.tech-tag {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+.project-link:hover { color: var(--primary-dark); }
+
+/* ── Contact ── */
+.contact-content { text-align: center; max-width: 600px; margin: 0 auto; }
+.closed-banner {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 30px;
+    color: #92400e;
+    font-weight: 500;
+}
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    opacity: 0.4;
+    pointer-events: none;
+}
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg);
+    padding: 20px 30px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 5px 20px var(--shadow);
+    transition: all 0.3s ease;
+}
+.contact-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-// Initialize URL on page load
-function initializeFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const section = urlParams.get('section');
-    
-    if (section && section !== 'home') {
-        setTimeout(() => {
-            scrollToSection(section, 'auto');
-            updateActiveNavLink(section);
-        }, 1200);
-    } else {
-        // Default to home
-        updateActiveNavLink('home');
-        updateURL('home');
-    }
+/* ── Loading spinner ── */
+.loading {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+.loading.hidden { opacity: 0; pointer-events: none; }
+.spinner {
+    width: 50px; height: 50px;
+    border: 3px solid var(--border);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    initializeFromURL();
-    revealElements();
-});
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .nav-links { gap: 20px; }
+    .section { padding: 60px 0; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .contact-links { flex-direction: column; align-items: center; }
+}
 
-// Handle browser back/forward
-window.addEventListener('popstate', (event) => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const section = urlParams.get('section') || 'home';
-    
-    scrollToSection(section);
-    updateActiveNavLink(section);
-});
-
-// Intersection Observer for more efficient scroll detection
-const observerOptions = {
-    threshold: 0.5,
-    rootMargin: '0px'
-};
-
-const sectionObserver = new IntersectionObserver((entries) => {
-    let mostVisibleSection = null;
-    let maxRatio = 0;
-    
-    entries.forEach(entry => {
-        if (entry.intersectionRatio > maxRatio) {
-            maxRatio = entry.intersectionRatio;
-            mostVisibleSection = entry.target.id;
-        }
-    });
-    
-    if (mostVisibleSection && maxRatio > 0.3) {
-        updateActiveNavLink(mostVisibleSection);
-        updateURL(mostVisibleSection);
-    }
-}, observerOptions);
-
-// Observe all sections
-document.querySelectorAll('section[id]').forEach(section => {
-    sectionObserver.observe(section);
-});
-
-// Optimize animations with Intersection Observer
-const animationObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-});
-
-document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right').forEach(el => {
-    animationObserver.observe(el);
-});
+/* ── IE fallbacks (duplicated from conditional comment for safety) ── */
+.hero-cta { display: inline-flex; }
