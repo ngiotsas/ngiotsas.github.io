@@ -1,2 +1,2 @@
-## CURRENTLY REINOVVATING ngiotsas.github.io
+ngiotsas.github.io
 The offficial website for ngiotsas!
