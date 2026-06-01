@@ -123,6 +123,7 @@
          parameter via JS as the user scrolls between sections.
          .header-scrolled class adds box-shadow on scroll.
     ====================================================== -->
+    <header id="header">
         <div class="nav-container">
             <a href="#home" class="logo">NG</a>
             <nav><ul class="nav-links">
@@ -260,18 +261,12 @@
         </div>
     </section>
     <!-- ===================== SCRIPTS =====================
-         Handles: DevTools warning, loading screen hide, smooth scroll, URL param
+         Handles: loading screen hide, smooth scroll, URL param
          updates (?section=), active nav link highlighting,
          scroll-reveal animations via IntersectionObserver,
          and html class swap from no-js to js on load.
     ====================================================== -->
     <script>
-        console.log('%c🛑 STOP!', 'color: red; font-size: 50px; font-weight: bold;');
-console.log(`%cThis is a browser feature intended for developers. If someone told you to copy and paste something here to enable a feature or "fix" something, it is a scam and could harm your computer or steal your data.`, 'color: red; font-size: 16px; font-weight: bold;');
-console.log(`%cDo not paste code from untrusted sources!`, 'color: red; font-size: 18px; font-weight: bold;');
-console.log(`%cIf you must paste code, type "allow pasting" below to continue.`, 'color: orange; font-size: 14px;');
-console.log('%c────────────────────────────────────────────────────────────────', 'color: red;');
-
         window.addEventListener('load',()=>{const e=document.getElementById('loading');setTimeout(()=>{e.classList.add('hidden')},1000)});
         document.documentElement.classList.remove('no-js');
         document.documentElement.classList.add('js');
