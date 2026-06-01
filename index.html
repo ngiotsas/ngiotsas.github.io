@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" class="white responsive flexbox antialiased smooth no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Web developer, websites, Nick, Nick Giotsas, Giotsas, GiotsasTech, web coder, HTML, CSS, Javascript, JS, developer, small business website solutions">
+    <meta name="author" content="Nikos G">
+    <!-- P.S. Nikos is what most people call me instead of Nikolaos -->
+    <meta name="description" content="Nikolaos Giotsas - Web Developer. Building websites with HTML, CSS, JavaScript and WordPress.">
+    <meta property="og:title" content="Nikolaos (Nikos/Nick) Giotsas | Web Developer">
+    <meta property="og:description" content="Building websites with HTML, CSS, JavaScript and WordPress.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ngiotsas.github.io">
+    <meta property="og:image" content="nick_thes_card.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Nikolaos (Nikos/Nick) Giotsas | Web Developer">
+    <meta name="twitter:description" content="Building websites with HTML, CSS, JavaScript and WordPress.">
+    <meta name="twitter:image" content="nick_thes_card.png">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#10b981">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="30 days">
+
+    <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <style>
+            .hero-cta { display: inline-block; }
+            .portfolio-grid { display: block; }
+            .project-card { display: inline-block; width: 30%; margin: 1%; vertical-align: top; }
+        </style>
+    <![endif]-->
+
+    <!--
+        Padding comment to prevent MSIE and Chrome from displaying their
+        "friendly" HTTP error page instead of this page.
+        IE requires at least 512 bytes, Chrome at least 256 bytes.
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    -->
+    <title>Nikolaos (Nikos/Nick) Giotsas | Web Developer</title>
+    <link rel="shortcut icon" href="nick_thes_card.png" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--primary:#10b981;--primary-dark:#059669;--secondary:#3b82f6;--text:#1f2937;--text-light:#6b7280;--bg:#fff;--bg-alt:#f9fafb;--border:#e5e7eb;--shadow:rgba(0,0,0,0.1)}
+        html.white { background-color: #ffffff; }
+        html.antialiased, html.antialiased * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        html.smooth { scroll-behavior: smooth; }
+        html.flexbox body { display: flex; flex-direction: column; min-height: 100vh; }
+        html.responsive img { max-width: 100%; height: auto; }
+        html.no-js .spinner { display: none; }
+        html.js .no-js-msg { display: none; }
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+        .scroll-reveal{opacity:0;transform:translateY(50px);transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .scroll-reveal.active{opacity:1;transform:translateY(0)}
+        .scroll-reveal-left{opacity:0;transform:translateX(-50px);transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .scroll-reveal-left.active{opacity:1;transform:translateX(0)}
+        .scroll-reveal-right{opacity:0;transform:translateX(50px);transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .scroll-reveal-right.active{opacity:1;transform:translateX(0)}
+        header{position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:1000;transition:all 0.3s ease}
+        .header-scrolled{box-shadow:0 4px 20px var(--shadow)}
+        .nav-container{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;height:70px}
+        .logo{font-family:'JetBrains Mono',monospace;font-size:1.5em;font-weight:700;color:var(--primary);text-decoration:none}
+        .nav-links{display:flex;gap:30px;list-style:none}
+        .nav-link{color:var(--text);text-decoration:none;font-weight:500;position:relative;transition:color 0.3s ease}
+        .nav-link:hover,.nav-link.active{color:var(--primary)}
+        .nav-link::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--primary);transition:width 0.3s ease}
+        .nav-link:hover::after,.nav-link.active::after{width:100%}
+        .hero{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#10b981 0%,#3b82f6 100%);color:white;position:relative;overflow:hidden}
+        .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.3}
+        .hero-content{z-index:2;max-width:800px;margin:0 auto;padding:0 20px}
+        .hero-profile-small{width:200px;height:200px;border-radius:10%;object-fit:cover;border:4px solid rgba(255,255,255,0.3);margin-bottom:20px;opacity:0;animation:slideUp 1s ease 0.3s forwards}
+        .hero-title{font-size:clamp(2.5rem,5vw,4rem);font-weight:800;margin-bottom:1rem;opacity:0;animation:slideUp 1s ease 0.5s forwards}
+        .hero-subtitle{font-size:clamp(1.2rem,2.5vw,1.5rem);font-weight:300;margin-bottom:2rem;opacity:0;animation:slideUp 1s ease 0.7s forwards}
+        .hero-cta{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.3);color:white;padding:15px 30px;border-radius:50px;text-decoration:none;font-weight:600;transition:all 0.3s ease;opacity:0;animation:slideUp 1s ease 0.9s forwards}
+        .hero-cta:hover{background:rgba(255,255,255,0.3);transform:translateY(-2px)}
+        @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .section{padding:80px 0;position:relative}
+        #about{background:var(--bg-alt)}
+        #portfolio,#contact{background:var(--bg)}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .section-header{text-align:center;margin-bottom:60px}
+        .section-title{font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--text);margin-bottom:1rem}
+        .section-subtitle{font-size:1.2rem;color:var(--text-light);max-width:600px;margin:0 auto}
+        .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:30px;margin-top:60px;margin-bottom:60px}
+        .project-card{background:var(--bg);border-radius:20px;overflow:hidden;box-shadow:0 10px 30px var(--shadow);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .project-card:hover{transform:translateY(-10px);box-shadow:0 20px 50px rgba(0,0,0,0.15)}
+        .project-image{height:200px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:3rem;font-weight:700}
+        .project-content{padding:30px}
+        .project-title{font-size:1.5rem;font-weight:600;color:var(--text);margin-bottom:10px}
+        .project-description{color:var(--text-light);margin-bottom:20px;line-height:1.6}
+        .project-tech{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+        .tech-tag{background:linear-gradient(45deg,var(--primary),var(--secondary));color:white;padding:6px 12px;border-radius:20px;font-size:0.85rem;font-weight:500}
+        .project-link{display:inline-flex;align-items:center;gap:8px;color:var(--primary);text-decoration:none;font-weight:600;transition:color 0.3s ease}
+        .project-link:hover{color:var(--primary-dark)}
+        .contact-content{text-align:center;max-width:600px;margin:0 auto}
+        .closed-banner{background:#fef3c7;border:1px solid #f59e0b;border-radius:12px;padding:16px 24px;margin-bottom:30px;color:#92400e;font-weight:500}
+        .contact-links{display:flex;justify-content:center;gap:30px;margin-top:40px;flex-wrap:wrap;opacity:0.4;pointer-events:none}
+        .contact-link{display:flex;align-items:center;gap:10px;background:var(--bg);padding:20px 30px;border-radius:15px;text-decoration:none;color:var(--text);box-shadow:0 5px 20px var(--shadow);transition:all 0.3s ease}
+        .loading{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s ease}
+        .loading.hidden{opacity:0;pointer-events:none}
+        .spinner{width:50px;height:50px;border:3px solid var(--border);border-top:3px solid var(--primary);border-radius:50%;animation:spin 1s linear infinite}
+        @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        @media(max-width:768px){.nav-links{gap:20px}.section{padding:60px 0}.portfolio-grid{grid-template-columns:1fr}.contact-links{flex-direction:column;align-items:center}}
+    </style>
+</head>
+<body>
+    <!-- ===================== LOADING OVERLAY =====================
+         Full-screen spinner shown on page load.
+         Hidden via JS after 1s delay (see bottom script).
+         Class "hidden" sets opacity:0 and pointer-events:none.
+    ====================================================== -->
+    <div class="loading" id="loading"><div class="spinner"></div></div>
+
+    <!-- ===================== HEADER / NAV =====================
+         Fixed top navigation bar with backdrop blur.
+         Logo links to #home. Nav links update the URL ?section=
+         parameter via JS as the user scrolls between sections.
+         .header-scrolled class adds box-shadow on scroll.
+    ====================================================== -->
+        <div class="nav-container">
+            <a href="#home" class="logo">NG</a>
+            <nav><ul class="nav-links">
+                <li><a href="?section=home" class="nav-link">Home</a></li>
+                <li><a href="?section=about" class="nav-link">About</a></li>
+                <li><a href="?section=portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="?section=contact" class="nav-link">Contact</a></li>
+            </ul></nav>
+        </div>
+    </header>
+    <!-- ===================== HERO SECTION =====================
+         Full-viewport landing area with green-to-blue gradient.
+         Contains profile photo, name, subtitle, and CTA button.
+         All child elements animate in via CSS slideUp keyframes
+         with staggered delays (0.3s, 0.5s, 0.7s, 0.9s).
+    ====================================================== -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <img src="nick_thes_card.png" alt="Nick Giotsas" class="hero-profile-small">
+            <h1 class="hero-title">Nikolaos (Nikos/Nick) Giotsas</h1>
+            <p class="hero-subtitle">Web Developer</p>
+            <a href="#portfolio" class="hero-cta"><span>Check out my work</span><span>→</span></a>
+        </div>
+    </section>
+    <!-- ===================== ABOUT SECTION =====================
+         Short bio paragraph on a light grey background.
+         Uses scroll-reveal animation (translateY + opacity).
+         No image — text only, centered, max-width 800px.
+    ====================================================== -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">I build websites and enjoy coding</p>
+            </div>
+            <div class="scroll-reveal" style="transition-delay:0.2s">
+                <p style="font-size:1.1rem;line-height:1.8;text-align:center;max-width:800px;margin:0 auto;color:var(--text-light)">I'm a web developer who loves creating websites. I work with HTML, CSS, JavaScript, and WordPress to build sites that look good and work well. I've been doing this for a while and really enjoy solving problems through code.</p>
+            </div>
+        </div>
+    </section>
+    <!-- ===================== PORTFOLIO SECTION =====================
+         CSS Grid of project cards (minmax 350px, auto-fit columns).
+         Cards animate in from left, center, or right depending on
+         position using scroll-reveal-left / scroll-reveal-right.
+         Each card has an emoji header, title, description, tech
+         tags, and a project link.
+    ====================================================== -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title">My Projects</h2>
+                <p class="section-subtitle">Some websites I've built recently</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="project-card scroll-reveal-left" style="transition-delay:0.1s">
+                    <div class="project-image">💼</div>
+                    <div class="project-content">
+                        <h3 class="project-title">GiotsasTech.com</h3>
+                        <p class="project-description">Bespoke technology partner offering web hosting, IT support, app development, domain registration, and enterprise-grade internet services.</p>
+                        <div class="project-tech"><span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span><span class="tech-tag">WordPress</span></div>
+                        <a href="https://giotsastech.com" target="_blank" class="project-link">Visit Site →</a>
+                    </div>
+                </div>
+                <div class="project-card scroll-reveal" style="transition-delay:0.2s">
+                    <div class="project-image">🌐</div>
+                    <div class="project-content">
+                        <h3 class="project-title">DATA.GIOTSAS.COM</h3>
+                        <p class="project-description">A tool that looks up information about IP addresses and domain names. Pretty useful for checking network stuff.</p>
+                        <div class="project-tech"><span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span><span class="tech-tag">APIs</span></div>
+                        <a href="https://data.giotsas.com" target="_blank" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                <div class="project-card scroll-reveal-right" style="transition-delay:0.3s">
+                    <div class="project-image">📚</div>
+                    <div class="project-content">
+                        <h3 class="project-title">GeorgeGiotsas.com</h3>
+                        <p class="project-description">Website for an author to showcase his books and writing. Clean layout that puts the focus on his work.</p>
+                        <div class="project-tech"><span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span></div>
+                        <a href="https://georgegiotsas.com" target="_blank" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                <div class="project-card scroll-reveal-left" style="transition-delay:0.4s">
+                    <div class="project-image">🧙‍♂️</div>
+                    <div class="project-content">
+                        <h3 class="project-title">The Wizard Game</h3>
+                        <span class="tech-tag">NEW Redesign</span>
+                        <p class="project-description">A fun browser game I made with a wizard character. Built with vanilla JavaScript - no fancy frameworks needed.</p>
+                        <div class="project-tech"><span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span><span class="tech-tag">Canvas API</span></div>
+                        <a href="https://wizardgamejs.github.io" target="_blank" class="project-link">Play Game →</a>
+                    </div>
+                </div>
+                <div class="project-card scroll-reveal-right" style="transition-delay:0.5s">
+                    <div class="project-image">🖥</div>
+                    <div class="project-content">
+                        <h3 class="project-title">This Portfolio Site</h3>
+                        <p class="project-description">The website you're looking at right now. Built with clean HTML, CSS, and JavaScript to showcase my work.</p>
+                        <div class="project-tech"><span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span><span class="tech-tag">Responsive Design</span></div>
+                        <a href="" class="project-link">You're here!</a>
+                    </div>
+                </div>
+                <div class="project-card scroll-reveal-left" style="transition-delay:0.6s">
+                    <div class="project-image">💻</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Website Development</h3>
+                        <p class="project-description">I build custom websites for people and small businesses. Focus on simple, clean designs that work well.</p>
+                        <div class="project-tech"><span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span><span class="tech-tag">WordPress</span></div>
+                        <a href="#contact" class="project-link">Let's talk →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ===================== CONTACT SECTION =====================
+         Currently closed for new projects (banner + dimmed links).
+         Shows email, GitHub, and YouTube links.
+         Links are disabled via pointer-events:none and opacity:0.4
+         when the closed-banner is active. Remove .closed-banner
+         and restore .contact-links opacity to re-enable.
+    ====================================================== -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Want to work together? Let's talk</p>
+            </div>
+            <div class="contact-content scroll-reveal" style="transition-delay:0.2s">
+                <div class="closed-banner">🚫 Not accepting new projects right now. Check back soon!</div>
+                <div class="contact-links">
+                    <a href="mailto:nick&#46;giotsas&#64;outlook&#46;com" class="contact-link"><span>Email</span></a>
+                    <a href="https://github.com/ngiotsas" class="contact-link"><span>GitHub</span></a>
+                    <a href="https://youtube.com/@giotsas" class="contact-link"><span>YouTube (1.07K)</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ===================== SCRIPTS =====================
+         Handles: loading screen hide, smooth scroll, URL param
+         updates (?section=), active nav link highlighting,
+         scroll-reveal animations via IntersectionObserver,
+         and html class swap from no-js to js on load.
+    ====================================================== -->
+    <script>
+        window.addEventListener('load',()=>{const e=document.getElementById('loading');setTimeout(()=>{e.classList.add('hidden')},1000)});
+        document.documentElement.classList.remove('no-js');
+        document.documentElement.classList.add('js');
+        function updateURL(e){const t=new URL(window.location);t.searchParams.set('section',e),window.history.replaceState({},'',t)}
+        function updateActiveNavLink(e){document.querySelectorAll('.nav-link').forEach(t=>{t.classList.remove('active'),'?section='+e===t.getAttribute('href')&&t.classList.add('active')})}
+        function scrollToSection(e,t='smooth'){const n=document.getElementById(e);n&&window.scrollTo({top:n.offsetTop,behavior:t})}
+        window.addEventListener('scroll',()=>{const e=document.getElementById('header');50<window.scrollY?e.classList.add('header-scrolled'):e.classList.remove('header-scrolled'),revealElements()});
+        document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener('click',t=>{t.preventDefault();const n=e.getAttribute('href').substring(1);scrollToSection(n),updateURL(n),updateActiveNavLink(n)})});
+        function revealElements(){document.querySelectorAll('.scroll-reveal,.scroll-reveal-left,.scroll-reveal-right').forEach(e=>{e.getBoundingClientRect().top<window.innerHeight-150&&e.classList.add('active')})}
+        document.addEventListener('DOMContentLoaded',()=>{updateActiveNavLink('home'),revealElements()});
+    </script>
+</body>
+</html>
