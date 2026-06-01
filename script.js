@@ -54,6 +54,16 @@ window.addEventListener('scroll', () => {
 });
 
 /* ── Nav click handlers ── */
+document.querySelectorAll('a[href^="?section="]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').replace('?section=', '');
+        scrollToSection(targetId);
+        updateURL(targetId);
+        updateActiveNavLink(targetId);
+    });
+});
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
