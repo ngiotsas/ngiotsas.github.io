@@ -54,7 +54,62 @@
     <p class="status-line"><b>NOTE:</b> port 8080 is closed — not taking on new freelance work right now. Everything else stays open. Go through giotsastech.com for anything business-shaped.</p>-->
   </div>
 </main>
+<section class="page subpage" id="page-contact-form" style="margin-top:44px;">
+  <p class="eyebrow">// send -f</p>
+  <h2>Drop me a line</h2>
+  <p class="lede">Goes straight to my inbox. No newsletter, no spam, I just read these.</p>
 
+  <form action="https://formspree.io/f/nickvasilisg+contact@gmail.com" method="POST" class="contact-form">
+    <!-- honeypot: bots fill this in, humans never see it -->
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+    <label for="cf-name">Name</label>
+    <input id="cf-name" type="text" name="name" required>
+
+    <label for="cf-email">Email</label>
+    <input id="cf-email" type="email" name="_replyto" required>
+
+    <label for="cf-message">Message</label>
+    <textarea id="cf-message" name="message" rows="5" required></textarea>
+
+    <button type="submit" class="btn primary">send message →</button>
+  </form>
+</section>
+
+<style>
+.contact-form{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  max-width:480px;
+  font-family:var(--mono);
+}
+.contact-form label{
+  font-size:12px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+}
+.contact-form input,
+.contact-form textarea{
+  font-family:var(--sans);
+  font-size:14px;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  background:var(--surface);
+  color:var(--text);
+}
+.contact-form input:focus,
+.contact-form textarea:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+.contact-form button{
+  align-self:flex-start;
+  margin-top:4px;
+}
+</style>
 <footer class="wrap"></footer>
 
 <script src="main.js"></script>
