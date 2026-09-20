@@ -1,0 +1,45 @@
+/* ---------- Header.css ---------- */
+/* Everything that styles the site nav bar (<header class="nav">), whose
+   markup itself lives in main.js. Kept separate from Main_Style.css so the
+   header can be restyled without touching page content styles. */
+
+header.nav{
+  border-bottom:1px solid var(--border);
+  padding-block:14px;
+  position:sticky;
+  top:env(safe-area-inset-top,0px);
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(6px);
+  z-index:10;
+}
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.brand{
+  font-family:var(--mono);
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:0.02em;
+  text-decoration:none;
+}
+.brand .dot{color:var(--accent);}
+nav.links{
+  display:flex;
+  gap:4px;
+  font-family:var(--mono);
+  font-size:12.5px;
+}
+nav.links a{
+  text-decoration:none;
+  padding:6px 10px;
+  border-radius:5px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+nav.links a:hover{background:var(--surface-2);color:var(--text);}
+nav.links a.active{color:var(--text);background:var(--surface-2);}
+nav.links .port{color:var(--accent-2);}
