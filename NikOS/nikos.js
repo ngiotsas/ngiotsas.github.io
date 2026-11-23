@@ -930,7 +930,7 @@ more-info:      https://ipinfo.io/AS207135`);
 
     function compose() {
       pane.innerHTML = `<h2>New message</h2>
-        <form class="compose" action="https://formspree.io/f/nickvasilisg+contact@gmail.com" method="POST" target="_blank">
+        <form class="compose" action="https://formspree.io/f/mvkavbqr" method="POST" target="_blank">
           <label>To</label><input value="Nick Giotsas" disabled>
           <label for="m-name">Your name</label><input id="m-name" name="name" required autocomplete="name">
           <label for="m-email">Your email</label><input id="m-email" name="email" type="email" required autocomplete="email">
