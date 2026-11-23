@@ -1,0 +1,3 @@
+.DS_Store
+# raw 7tsp icon pack (~100 MB of .res files) — the PNGs we use are extracted into NikOS/icons/
+NikOS/icons/iconpack/

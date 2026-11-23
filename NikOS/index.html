@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NikOS</title>
+<meta name="description" content="NikOS — a Windows 10 (1709) style desktop that's really just an about page for Nick Giotsas with extra steps.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230078d7'/%3E%3Cpath d='M8 25V7h3.5l9.5 11V7h3v18h-3.5L11 14v11z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="nikos.css">
+</head>
+<body>
+
+<div id="desktop">
+  <div class="wallpaper"></div>
+  <div id="icons" role="list" aria-label="Desktop"></div>
+  <div id="windows"></div>
+</div>
+
+<div id="taskbar">
+  <button class="tbtn" id="start-btn" aria-label="Start" title="Start"></button>
+  <div id="search" role="button" tabindex="0" aria-label="Search"></div>
+  <button class="tbtn" id="taskview" aria-label="Task View" title="Task View"></button>
+  <div class="tb-apps" id="tb-apps"></div>
+  <div class="tray">
+    <button id="tray-up" title="Show hidden icons" aria-label="Show hidden icons"></button>
+    <button id="tray-net" title="AS207135&#10;Internet access" aria-label="Network"></button>
+    <button id="tray-vol" title="Speakers: 100%" aria-label="Volume"></button>
+    <button id="clock" aria-label="Clock"><span id="clock-t"></span><span id="clock-d"></span></button>
+    <button id="tray-ac" title="Action center" aria-label="Action center"></button>
+    <button id="show-desktop" title="Show desktop" aria-label="Show desktop"></button>
+  </div>
+</div>
+
+<div id="start" class="acrylic" hidden></div>
+<div id="search-panel" class="acrylic" hidden></div>
+<div id="action-center" class="acrylic" hidden></div>
+<div id="flyout" class="acrylic" hidden></div>
+<div id="toasts" aria-live="polite"></div>
+<div id="nightlight"></div>
+
+<div id="login" hidden></div>
+<div id="lock" hidden></div>
+<div id="boot" hidden></div>
+<div id="bsod" hidden></div>
+<div id="off" hidden></div>
+
+<noscript><p style="color:#fff;padding:20px;font-family:sans-serif">NikOS needs JavaScript to boot. <a style="color:#7cc4ff" href="../">Back to nick.giotsas</a>.</p></noscript>
+<script src="nikos.js"></script>
+</body>
+</html>
