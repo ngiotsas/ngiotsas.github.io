@@ -53,7 +53,7 @@ body.beams .wallpaper,body.beams .wp-bg{background:
 @keyframes winopen{from{opacity:0;transform:scale(.96)}}
 .win.inactive{border-color:#9a9a9a;box-shadow:0 4px 20px rgba(0,0,0,.3)}
 .win.max{left:0!important;top:0!important;width:100%!important;height:100%!important;resize:none;border:0}
-.win.minimized{display:none}
+.win.minimized,.win.offdesk{display:none}
 .titlebar{flex:none;height:32px;display:flex;align-items:center;background:#fff;color:#000;font-size:12px;touch-action:none}
 .win.inactive .titlebar{color:#999}
 .ticon{width:16px;height:16px;margin:0 8px 0 10px;flex:none;display:flex}
@@ -179,6 +179,38 @@ body.no-transparency .acrylic,body.no-transparency #taskbar{background:#1f1f1f;b
 .vol .li{width:22px;height:22px}
 .vol input{flex:1;accent-color:var(--accent-light)}
 .vol b{font-size:22px;font-weight:300;width:40px;text-align:right}
+
+/* ---------- Task View ---------- */
+#tv{position:fixed;inset:0 0 var(--tb) 0;z-index:8800;background:rgba(20,20,20,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  display:flex;flex-direction:column;animation:tvin .18s ease-out}
+@keyframes tvin{from{opacity:0}}
+.tv-grid{flex:1;min-height:0;overflow:auto;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:28px 30px;padding:40px}
+.tv-empty{color:#ddd;font-size:15px}
+.tv-card{color:#fff;padding:6px;border:2px solid transparent;outline:0;animation:tvcard .22s cubic-bezier(.1,.9,.2,1) backwards}
+@keyframes tvcard{from{opacity:0;transform:scale(.9)}}
+.tv-card:hover,.tv-card:focus-visible{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.06)}
+.tv-head{display:flex;align-items:center;gap:8px;height:28px;font-size:13px;margin-bottom:6px;max-width:300px}
+.tv-head :is(svg,img){width:18px;height:18px;flex:none}
+.tv-head span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tv-x{width:28px;height:28px;border:0;background:transparent;color:#fff;display:grid;place-items:center;opacity:0;flex:none}
+.tv-card:hover .tv-x,.tv-card:focus-within .tv-x,.tv-desk:hover .tv-x{opacity:1}
+.tv-x:hover{background:#e81123}
+.tv-x svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:1.2}
+.tv-thumb{position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.45);background:#fff}
+.tv-thumb .win{position:absolute;resize:none;box-shadow:none}
+.tv-desks{flex:none;display:flex;align-items:flex-end;justify-content:center;gap:14px;padding:0 24px 18px;position:relative;min-height:56px}
+.tv-desk{position:relative;color:#fff;font-size:12px;padding:4px;border:2px solid transparent;outline:0}
+.tv-desk.on{border-color:var(--accent-light)}
+.tv-desk:hover{background:rgba(255,255,255,.08)}
+.tv-dthumb{position:relative;width:150px;height:84px;overflow:hidden;display:grid;place-items:center}
+.tv-dthumb span{position:relative;font-size:12px;text-shadow:0 1px 2px #000}
+.tv-dname{padding-top:4px}
+.tv-desk .tv-x{position:absolute;right:4px;top:4px;width:24px;height:24px;background:rgba(0,0,0,.5)}
+.tv-desk .tv-x:hover{background:#e81123}
+.tv-new{position:absolute;right:24px;bottom:18px;border:0;background:transparent;color:#fff;font-size:15px;display:flex;align-items:center;gap:10px;padding:8px 12px}
+.tv-new span{font-size:26px;font-weight:200;line-height:1}
+.tv-new:hover{background:rgba(255,255,255,.1)}
+@media (max-width:720px){.tv-desks{flex-wrap:wrap;justify-content:flex-start;padding-bottom:60px}.tv-dthumb{width:96px;height:56px}#taskview{display:grid!important}}
 
 /* ---------- toasts ---------- */
 #toasts{position:fixed;right:12px;bottom:calc(var(--tb) + 12px);display:flex;flex-direction:column;gap:8px;z-index:9200;pointer-events:none}

@@ -251,11 +251,12 @@ L7    apps        Web Development
   const NAV = ['pc', 'docs', 'projects', 'toolbox', 'subs', 'bookmarks', null, 'bin'];
 
   // ---------- window manager ----------
-  const W = { list: [], z: 100, focused: null, seq: 0 };
+  const W = { list: [], z: 100, focused: null, seq: 0, desk: 1, desks: [1] };
+  const here = () => W.list.filter(r => r.desk === W.desk);
 
   function createWindow(app, o) {
     o = o || {};
-    const rec = { id: ++W.seq, app: app.id, title: o.title || app.title };
+    const rec = { id: ++W.seq, app: app.id, title: o.title || app.title, desk: W.desk };
     const win = h('div', { class: 'win', role: 'dialog', 'aria-label': rec.title });
     const tTitle = h('span', { class: 'ttitle' }, rec.title);
     const bMin = h('button', { class: 'wbtn', title: 'Minimize', 'aria-label': 'Minimize', html: GLYPH.min });
@@ -306,7 +307,7 @@ L7    apps        Web Development
   }
 
   function topVisible() {
-    return W.list.filter(r => !r.win.classList.contains('minimized'))
+    return here().filter(r => !r.win.classList.contains('minimized'))
       .sort((a, b) => b.win.style.zIndex - a.win.style.zIndex)[0];
   }
 
@@ -379,7 +380,7 @@ L7    apps        Web Development
 
   function updateTaskbar() {
     const wrap = $('#tb-apps');
-    const running = [...new Set(W.list.map(r => r.app))];
+    const running = [...new Set(here().map(r => r.app))];
     const ids = PINNED.concat(running.filter(a => !PINNED.includes(a)));
     $$('.tbtn', wrap).forEach(b => { if (!ids.includes(b.dataset.app)) b.remove(); });
     ids.forEach(id => {
@@ -389,7 +390,7 @@ L7    apps        Web Development
         b.addEventListener('click', () => taskClick(id));
         wrap.append(b);
       }
-      const wins = W.list.filter(r => r.app === id);
+      const wins = here().filter(r => r.app === id);
       b.classList.toggle('running', wins.length > 0);
       b.classList.toggle('active', !!W.focused && W.focused.app === id);
       b.title = wins.length === 1 ? wins[0].title : APPS[id].title;
@@ -398,7 +399,7 @@ L7    apps        Web Development
 
   function taskClick(id) {
     closePanels();
-    const wins = W.list.filter(r => r.app === id);
+    const wins = here().filter(r => r.app === id);
     if (!wins.length) { openApp(id); return; }
     if (wins.length === 1) {
       const r = wins[0];
@@ -1242,8 +1243,91 @@ more-info:      https://ipinfo.io/AS207135`);
     f.style.right = isNarrow() ? '0px' : Math.max(0, innerWidth - r.right - 40) + 'px';
   }
 
+
+  // ---------- Task View (1709: windows + virtual desktops, no Timeline yet) ----------
+  function switchDesk(n) {
+    W.desk = n;
+    W.list.forEach(r => r.win.classList.toggle('offdesk', r.desk !== n));
+    W.focused = null;
+    W.list.forEach(r => r.win.classList.add('inactive'));
+    const top = topVisible();
+    if (top) focusWin(top); else updateTaskbar();
+  }
+
+  function toggleTaskView() {
+    const tv = $('#tv');
+    if (!tv.hidden) { closePanels(); return; }
+    closePanels();
+    tv.hidden = false;
+    $('#taskview').classList.add('active');
+    drawTaskView();
+  }
+
+  function drawTaskView() {
+    const tv = $('#tv');
+    tv.innerHTML = '<div class="tv-grid"></div><div class="tv-desks"></div>';
+    const grid = $('.tv-grid', tv);
+    const wins = here().sort((a, b) => b.win.style.zIndex - a.win.style.zIndex);
+    if (!wins.length) grid.append(h('div', { class: 'tv-empty' }, 'No open windows on this desktop. The cat closed them.'));
+    const maxW = isNarrow() ? innerWidth * 0.8 : 300, maxH = isNarrow() ? 170 : 200;
+    wins.forEach((r, i) => {
+      // size the thumbnail from the window's real (or remembered) size
+      const max = r.win.classList.contains('max');
+      const w = max ? innerWidth : parseFloat(r.win.style.width) || 600;
+      const ht = max ? desktopH() : parseFloat(r.win.style.height) || 400;
+      const k = Math.min(maxW / w, maxH / ht);
+      const clone = r.win.cloneNode(true);
+      clone.classList.remove('minimized', 'offdesk', 'inactive', 'max');
+      Object.assign(clone.style, { left: '0', top: '0', width: w + 'px', height: ht + 'px', transform: `scale(${k})`, transformOrigin: '0 0', animation: 'none', pointerEvents: 'none', zIndex: 'auto' });
+      $$('[id]', clone).forEach(n => n.removeAttribute('id'));
+      const x = h('button', { class: 'tv-x', title: 'Close', 'aria-label': 'Close ' + r.title, html: GLYPH.close });
+      const card = h('div', { class: 'tv-card', role: 'button', tabindex: '0', 'aria-label': r.title, style: `animation-delay:${i * 30}ms` },
+        h('div', { class: 'tv-head', html: icon(APPS[r.app].icon) + `<span>${esc(r.title)}</span>` }, x),
+        h('div', { class: 'tv-thumb', style: `width:${Math.round(w * k)}px;height:${Math.round(ht * k)}px` }, clone));
+      const pickIt = () => { closePanels(); restore(r); };
+      card.addEventListener('click', e => { if (!e.target.closest('.tv-x')) pickIt(); });
+      card.addEventListener('keydown', e => { if (e.key === 'Enter') pickIt(); if (e.key === 'Delete') x.click(); });
+      x.addEventListener('click', () => { closeWin(r); drawTaskView(); });
+      grid.append(card);
+    });
+    grid.addEventListener('click', e => { if (e.target === grid) closePanels(); });
+
+    const desks = $('.tv-desks', tv);
+    if (W.desks.length > 1) W.desks.forEach((n, i) => {
+      const count = W.list.filter(r => r.desk === n).length;
+      const d = h('div', { class: 'tv-desk' + (n === W.desk ? ' on' : ''), role: 'button', tabindex: '0', 'aria-label': 'Desktop ' + (i + 1) },
+        h('div', { class: 'tv-dthumb' }, h('div', { class: 'wp-bg' }), h('span', null, count ? count + (count === 1 ? ' window' : ' windows') : '')),
+        h('div', { class: 'tv-dname' }, 'Desktop ' + (i + 1)));
+      const close = h('button', { class: 'tv-x', title: 'Close desktop', 'aria-label': 'Close desktop ' + (i + 1), html: GLYPH.close });
+      close.addEventListener('click', e => {
+        e.stopPropagation();
+        // like Windows: closing a desktop moves its windows to the one on its left
+        const into = W.desks[Math.max(0, i - 1)] === n ? W.desks[1] : W.desks[Math.max(0, i - 1)];
+        W.list.forEach(r => { if (r.desk === n) r.desk = into; });
+        W.desks = W.desks.filter(x => x !== n);
+        switchDesk(W.desk === n ? into : W.desk);
+        drawTaskView();
+      });
+      d.append(close);
+      d.addEventListener('click', () => { switchDesk(n); drawTaskView(); });
+      d.addEventListener('keydown', e => { if (e.key === 'Enter') d.click(); });
+      desks.append(d);
+    });
+    const add = h('button', { class: 'tv-new', html: '<span>+</span> New desktop' });
+    add.addEventListener('click', () => {
+      if (W.desks.length >= 4) { toast('Task View', 'Four desktops is plenty. The cat only needs one to sit on.', 'pc'); return; }
+      const n = Math.max(...W.desks) + 1;
+      W.desks.push(n);
+      drawTaskView();
+    });
+    desks.append(add);
+    const first = $('.tv-card', grid);
+    if (first) first.focus({ preventScroll: true });
+  }
+
   function closePanels() {
-    ['#start', '#search-panel', '#action-center', '#flyout'].forEach(s => { $(s).hidden = true; });
+    ['#start', '#search-panel', '#action-center', '#flyout', '#tv'].forEach(s => { $(s).hidden = true; });
+    $('#taskview').classList.remove('active');
     $$('#start-btn, #search, .tray > button').forEach(b => b.classList.remove('on'));
     $$('.menu').forEach(m => m.remove());
   }
@@ -1449,7 +1533,7 @@ more-info:      https://ipinfo.io/AS207135`);
     });
     $('#search').addEventListener('click', openSearch);
     $('#search').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSearch(); } });
-    $('#taskview').addEventListener('click', () => toast('Task View', 'Timeline arrives in version 1803. This is 1709. Patience.', 'logo'));
+    $('#taskview').addEventListener('click', toggleTaskView);
     $('#tray-net').addEventListener('click', e => flyout('net', e.currentTarget));
     $('#tray-vol').addEventListener('click', e => flyout('vol', e.currentTarget));
     $('#tray-up').addEventListener('click', e => flyout('up', e.currentTarget));
@@ -1462,13 +1546,13 @@ more-info:      https://ipinfo.io/AS207135`);
       ac.hidden = false; e.currentTarget.classList.add('on'); e.currentTarget.classList.remove('unread');
       drawAC();
     });
-    $('#show-desktop').addEventListener('click', () => { closePanels(); W.list.forEach(minimize); });
+    $('#show-desktop').addEventListener('click', () => { closePanels(); here().forEach(minimize); });
 
     // clicking anywhere else closes open panels and menus
     document.addEventListener('pointerdown', e => {
       const t = e.target;
       if (!t.closest('.menu')) $$('.menu').forEach(m => m.remove());
-      if (t.closest('#start, #start-btn, #search-panel, #search, #action-center, #tray-ac, #flyout, .tray > button, .menu, .toast')) return;
+      if (t.closest('#start, #start-btn, #search-panel, #search, #action-center, #tray-ac, #flyout, .tray > button, .menu, .toast, #tv, #taskview')) return;
       ['#start', '#search-panel', '#action-center', '#flyout'].forEach(s => { if (!$(s).hidden) closePanels(); });
     });
     document.addEventListener('keydown', e => {
