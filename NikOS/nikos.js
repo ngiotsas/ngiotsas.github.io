@@ -143,10 +143,7 @@
 
   const TXT = {
     'about.txt':
-`The version outside working hours
-=================================
-
-Most days start the same way: waking up, then a quick check of whatever DNS record broke overnight, then a genuinely embarrassing number of hours spent poking at AI agents to see what they'll do if I give them a little more rope.
+`Most days start the same way: waking up, then a quick check of whatever DNS record broke overnight, then a genuinely embarrassing number of hours spent poking at AI agents to see what they'll do if I give them a little more rope.
 
 I've been hooked on agentic engineering for a while now — not the hype version, the actual "why did it just decide to delete that file" version. Watching a system plan, use tools, and occasionally outsmart itself never really gets old, and it's the part of the day I'd do for free.
 
